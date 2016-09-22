@@ -6,6 +6,24 @@ var ENDPOINT = 'http://directory.osu.edu/fpjson.php';
 function FindPeople() {
 }
 
+FindPeople.prototype.format = function(vals) {
+
+  var name = _.template('${first} ${middle} ${username}')({
+    first: vals.first_name,
+    middle: vals.middle_name,
+    username: vals.username
+  })
+
+  var works_at = _.template('works in ${room_number}')({
+    room_number: vals.address.room_number
+  })
+  return _.template('${name} ${works_at}')({
+    name: name,
+    works_at: works_at
+  });
+
+};
+
 /**
  * Requests info by first and last names.
  * @param last_name
