@@ -3,8 +3,9 @@ logs
 *.log
 npm-debug.log*
 
-# Webstorm
+# Dumb files
 .idea
+.DS_Store
 
 # Runtime data
 pids
