@@ -24,7 +24,7 @@ FindPeople.prototype.fromName = function (last_name, first_name) {
 FindPeople.prototype.getFromName = function (last_name, first_name) {
   var options = {
     method: 'GET',
-    uri: ENDPOINT + '?lastname=' + last_name + '&firstname=' + first_name,
+    uri: ENDPOINT + '?filterOnlyEmployees=employee&lastname=' + last_name + '&firstname=' + first_name,
     resolveWithFullResponse: true,
     json: true
   };
@@ -49,7 +49,7 @@ FindPeople.prototype.fromUsername = function (username) {
 FindPeople.prototype.getFromUsername = function (username) {
   var options = {
     method: 'GET',
-    uri: ENDPOINT + '?name_n=' + username,
+    uri: ENDPOINT + '?filterOnlyEmployees=employee&name_n=' + username,
     resolveWithFullResponse: true,
     json: true
   };
