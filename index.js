@@ -7,7 +7,7 @@ var FindPeople = require('./find_people');
 
 app.launch(function(req, res) {
   var prompt = 'For contact information, tell me a name.';
-  res.say(prompt).reprompt(prompt).shouldEndSession(false);
+  res.say(prompt).send();
 });
 
 app.intent('lookup_by_name', {
@@ -16,14 +16,14 @@ app.intent('lookup_by_name', {
       'LAST': 'BRUTUS_US_LAST_NAME'
     },
     'utterances': [
-      'where does {FIRST} {LAST} work']
+      'where does {-|FIRST} {-|LAST} work']
   },
   function(req, res) {
     var first = req.slot('FIRST');
     var last = req.slot('LAST');
     if (_.isEmpty(first) || _.isEmpty(last)) {
       var prompt = 'First  ' + first + ',  Last ' + last ;
-      res.say(prompt).reprompt(reprompt).shouldEndSession(true);
+      res.say(prompt).send();
     }
     else {
       var fp = new FindPeople();
