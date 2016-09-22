@@ -45,7 +45,7 @@ app.intent('lookup_by_name', {
       }).catch(function(err) {
         console.log(err.statusCode);
         var prompt = 'Daisy Daisy, Give me your answer do. I\'m half crazy, All for the love of you!';
-        res.say(prompt).reprompt(reprompt).shouldEndSession(false).send();
+        res.say(err.message).send();
       });
     }
     return false;
