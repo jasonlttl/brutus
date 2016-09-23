@@ -30,16 +30,18 @@ FindPeople.formatNameId = function(person) {
  */
 FindPeople.formatAddress = function(address) {
 
-  var formatted = _.template('${room_number} ${street1}')({
-    room_number:  FindPeople.formatRoom(address.room_number),
+  var formatted = _.template('${building_room} at ${street1}')({
+    building_room:  FindPeople.formatRoom(address),
     street1: address.street1
   })
   return formatted;
 
 };
 
-FindPeople.formatRoom = function(room) {
-  return !isNaN(parseFloat(room)) && isFinite(room) ? 'room ' + room : room;
+FindPeople.formatRoom = function(address) {
+  var room = address.room_number;
+  var building = address.building.name;
+  return !isNaN(parseFloat(room)) && isFinite(room) ? 'room ' + room + ' ' + building : room;
 }
 
 /**
