@@ -81,7 +81,7 @@ describe('FindPeople', function () {
   describe('#formatAddress', function () {
     context('with a regular address', function () {
       it('formats the values as expected', function () {
-        expect(FindPeople.formatAddress(person.address)).to.eq('305 Bricker Hall 190 N Oval Mall');
+        expect(FindPeople.formatAddress(person.address)).to.eq('305 Bricker Hall at 190 N Oval Mall');
       });
     });
   });
