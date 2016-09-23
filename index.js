@@ -40,7 +40,7 @@ app.intent('LookupEmployeeByName', {
       fp.fromName(last, first).then(function(people) {
         if (people.length > 0) {
           var appointment = FindPeople.bestAppointment(people[0].appointments);
-          var message = _.template('${title_prefix} ${name_id} has an office at ${address}')({
+          var message = _.template('${title_prefix} ${name_id} has an office in ${address}')({
             name_id: FindPeople.formatNameId(people[0]),
             title_prefix: FindPeople.formatTitlePrefix(appointment),
             address: FindPeople.formatAddress(people[0].address)
