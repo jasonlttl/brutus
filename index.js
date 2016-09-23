@@ -17,8 +17,8 @@ app.intent('LookupEmployeeByName', {
     },
     'utterances': [
       'where does {-|FIRST} {-|LAST} work',
-      'where {-|FIRST} {-|LAST} works',
       'where\'s {-|FIRST} {-|LAST} work',
+      'where {-|FIRST} {-|LAST} works',
     ]
   },
   function(req, res) {
@@ -51,6 +51,55 @@ app.intent('LookupEmployeeByName', {
           res.say('I didn\'t find anyone named ' + first + ' ' + last).send();
         }
 
+
+      }).catch(function(err) {
+        console.log(err.message);
+        res.say('Daisy Daisy, Give me your answer do. I\'m half crazy, All for the love of you!');
+      });
+    }
+    return false;
+
+  }
+);
+
+app.intent('LookupEmployeeByUsername', {
+    'slots': {
+      'LAST': 'BRUTUS_US_LAST_NAME',
+      'NUM': 'AMAZON:NUMBER'
+    },
+    'utterances': [
+      'where does {-|LAST} dot {-|NUM} work',
+      'where\'s {-|LAST} dot {-|NUM}  work',
+      'where {-|LAST} dot {-|NUM}  works',
+    ]
+  },
+  function(req, res) {
+
+    var last = req.slot('LAST');
+    var num = req.slot('NUM');
+
+    if (_.isEmpty(last) && _.isEmpty(num)) {
+      res.say('I did not understand the last name and number').send();
+    }
+    else if (_.isEmpty(last) && !_.isEmpty(num)) {
+      res.say('I heard a number of ' + num + ' but I did not hear the last name.').send();
+    }
+    else if (!_.isEmpty(last) && _.isEmpty(num)) {
+      res.say('I heard a last name of ' + last + ' but I did not hear the number.').send();
+    }
+    else {
+      var fp = new FindPeople();
+      fp.fromUsername(last + '.' + num).then(function(people) {
+        if (people.length > 0) {
+          var message = _.template('${first_name} has an office in ${address}')({
+            first_name: people[0].first_name,
+            address: FindPeople.formatAddress(people[0].address)
+          });
+          res.say(message).send();
+        }
+        else {
+          res.say('I didn\'t find anyone with a username of ' + last + '.' + num).send();
+        }
 
       }).catch(function(err) {
         console.log(err.message);
