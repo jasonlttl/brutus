@@ -12,8 +12,16 @@ method.orient = function() {
   return this.name() + ' is located at ' + this.streetAddress();
 }
 
+method.orientNum = function() {
+  return 'Building ' + this.code() + ', ' + this.name() + ', is located at ' + this.streetAddress();
+}
+
 method.name = function() {
   return this.json.name;
+}
+
+method.code = function() {
+  return this.json.building_code;
 }
 
 method.streetAddress = function() {

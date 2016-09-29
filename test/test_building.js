@@ -63,10 +63,26 @@ describe('Building', function () {
     });
   });
 
+  describe('#code', function () {
+    context('with hitchcock', function () {
+      it('returns 274', function () {
+        expect(building.code()).to.eq('274');
+      });
+    });
+  });
+
   describe('#orient', function () {
     context('with hitchcock', function () {
       it('returns orientation string', function () {
         expect(building.orient()).to.eq('Hitchcock Hall is located at 2070 Neil Ave');
+      });
+    });
+  });
+
+  describe('#orientNum', function () {
+    context('with hitchcock', function () {
+      it('returns orientation string', function () {
+        expect(building.orientNum()).to.eq('Building 274, Hitchcock Hall, is located at 2070 Neil Ave');
       });
     });
   });

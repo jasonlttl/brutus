@@ -157,7 +157,7 @@ app.intent('OrientBuildingByNum', {
       var search = new Search();
       search.buildingFromCode(num).then(function(building) {
         if (building) {
-          res.say(building.orient()).send();
+          res.say(building.orientNum()).send();
         }
         else {
           res.say('I didn\'t find a building with number ' + num).send();
