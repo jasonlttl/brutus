@@ -4,6 +4,8 @@ var _ = require('lodash');
 var Alexa = require('alexa-app');
 var app = new Alexa.app('brutus');
 var FindPeople = require('./find_people');
+var Search = require('./search');
+var Building = require('./building');
 
 app.launch(function(req, res) {
   var prompt = 'For contact information, tell me a name.';
@@ -147,7 +149,25 @@ app.intent('OrientBuildingByNum', {
   function(req, res) {
 
     var num = req.slot('NUM');
-    res.say('I think you said this building: ' + num).send();
+
+    if (_.isEmpty(num)) {
+      res.say('I did not understand the building number').send();
+    }
+    else {
+      var search = new Search();
+      search.buildingFromCode(num).then(function(building) {
+        if (building) {
+          res.say(building.orient()).send();
+        }
+        else {
+          res.say('I didn\'t find a building with number ' + num).send();
+        }
+
+      }).catch(function(err) {
+        console.log(err.message);
+        res.say('Daisy Daisy, Give me your answer do. I\'m half crazy, All for the love of you!');
+      });
+    }
     return false;
 
   }
