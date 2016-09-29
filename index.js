@@ -13,7 +13,7 @@ app.launch(function(req, res) {
 app.intent('LookupEmployeeByName', {
     'slots': {
       'FIRST': 'AMAZON.US_FIRST_NAME',
-      'LAST': 'BRUTUS_US_LAST_NAME'
+      'LAST': 'US_LAST_NAME'
     },
     'utterances': [
       'where does {-|FIRST} {-|LAST} work',
@@ -64,7 +64,7 @@ app.intent('LookupEmployeeByName', {
 
 app.intent('LookupEmployeeByUsername', {
     'slots': {
-      'LAST': 'BRUTUS_US_LAST_NAME',
+      'LAST': 'US_LAST_NAME',
       'NUM': 'AMAZON:NUMBER'
     },
     'utterances': [
@@ -110,5 +110,48 @@ app.intent('LookupEmployeeByUsername', {
 
   }
 );
+
+app.intent('OrientBuildingByName', {
+    'slots': {
+      'BUILDING_NAME': 'BUILDING_NAME'
+    },
+    'utterances': [
+      'where is {-|BUILDING_NAME}',
+      'where\'s {-|BUILDING_NAME}',
+      '{how |} to get to {the |} {-|BUILDING_NAME}',
+      '{how |} to find {the |} {-|BUILDING_NAME}'
+    ]
+  },
+  function(req, res) {
+
+    var building = req.slot('BUILDING_NAME');
+    res.say('I think you said this building: ' + building).send();
+    return false;
+
+  }
+);
+
+app.intent('OrientBuildingByNum', {
+    'slots': {
+      'NUM': 'AMAZON:NUMBER'
+    },
+    'utterances': [
+      'where is building {-|NUM}',
+      'where\'s building {-|NUM}',
+      'what is building {-|NUM}',
+      'what\'s building {-|NUM}',
+      '{how |} to get to building {-|NUM}',
+      '{how |} to find building {-|NUM}'
+    ]
+  },
+  function(req, res) {
+
+    var num = req.slot('NUM');
+    res.say('I think you said this building: ' + num).send();
+    return false;
+
+  }
+);
+
 
 module.exports = app;

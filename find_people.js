@@ -101,7 +101,7 @@ FindPeople.prototype.fromName = function (last_name, first_name) {
   return this.getFromName(last_name, first_name).then(
     function (response) {
       console.log('success - received info for ' + last_name + ', ' + first_name);
-      console.log(response.body);
+      // console.log(response.body);
       return response.body;
     }
   );
