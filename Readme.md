@@ -11,6 +11,14 @@ Alexa, ask Brutus...
 
 * where Rebecca Stringer works
 
+## Sample Cards
+
+### Building
+
+Hitchcock Hall
+2070 Neil Ave
+![Image of Hitchcock Hall](https://www.osu.edu/map/buildingImg.php?id=274)
+
 ## Caveats
 
 ### Names
