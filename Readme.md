@@ -15,9 +15,9 @@ Alexa, ask Brutus...
 
 ### Building
 
-Hitchcock Hall
-2070 Neil Ave
+#### Hitchcock Hall
 ![Image of Hitchcock Hall](https://www.osu.edu/map/buildingImg.php?id=274)
+2070 Neil Ave
 
 ## Caveats
 
