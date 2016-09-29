@@ -71,6 +71,14 @@ describe('Building', function () {
     });
   });
 
+  describe('#photoUrl', function () {
+    context('with hitchcock', function () {
+      it('returns https photo url', function () {
+        expect(building.photoUrl()).to.eq('https://www.osu.edu/map/buildingImg.php?id=274');
+      });
+    });
+  });
+
   describe('#orient', function () {
     context('with hitchcock', function () {
       it('returns orientation string', function () {

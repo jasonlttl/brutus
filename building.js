@@ -32,4 +32,22 @@ method.streetAddress = function() {
   return val;
 }
 
+method.photoUrl = function() {
+  return this.json.photo_url.replace('http', 'https');
+}
+
+method.card = function() {
+  var card =
+  {
+    type: "Standard",
+    title: this.name(),
+    text: this.streetAddress(),
+    image: {
+      smallImageUrl: this.photoUrl(),
+      largeImageUrl: this.photoUrl()
+    }
+  }
+  return card;
+}
+
 module.exports = Building;
