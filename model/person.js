@@ -10,6 +10,10 @@ method.getJson = function() {
   return this.json;
 };
 
+method.name = function() {
+  return this.firstName() + ' ' + this.lastName();
+}
+
 method.firstName = function() {
   return this.json.first_name;
 }
@@ -110,5 +114,19 @@ method.titlePriority = function(title){
   return map.hasOwnProperty(title) ? map[title] : 0;
 
 };
+
+method.card = function() {
+  var card =
+  {
+    type: "Standard",
+    title: this.name(),
+    text: this.address(),
+    image: {
+      smallImageUrl: 'https://opic.osu.edu/' + this.username() + '?width=300',
+      largeImageUrl: 'https://opic.osu.edu/' + this.username() + '?width=500'
+    }
+  }
+  return card;
+}
 
 module.exports = Person;

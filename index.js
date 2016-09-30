@@ -43,7 +43,9 @@ app.intent('LookupEmployeeByName', {
           title_prefix: person.titlePrefix(),
           address: person.address()
         });
-        res.say(message).send();
+        res.say(message);
+        res.card(person.card());
+        res.send();
       });
     }
     return false;
@@ -82,7 +84,9 @@ app.intent('LookupEmployeeByUsername', {
           first_name: person.firstName(),
           address: person.address()
         });
-        res.say(message).send();
+        res.say(message);
+        res.card(person.card());
+        res.send();
       }).catch(function(err) {
         console.log(err.message);
         res.say('Daisy Daisy, Give me your answer do. I\'m half crazy, All for the love of you!');
