@@ -3,9 +3,7 @@ module.change_code = 1;
 var _ = require('lodash');
 var Alexa = require('alexa-app');
 var app = new Alexa.app('brutus');
-var FindPeople = require('./find_people');
 var Search = require('./search');
-var Building = require('./building');
 
 app.launch(function(req, res) {
   var prompt = 'For contact information, tell me a name.';
@@ -38,29 +36,17 @@ app.intent('LookupEmployeeByName', {
       res.say('I heard a last name of ' + last + ' but I did not hear the first name.').send();
     }
     else {
-      var fp = new FindPeople();
-      fp.fromName(last, first).then(function(people) {
-        if (people.length > 0) {
-          var appointment = FindPeople.bestAppointment(people[0].appointments);
-          var message = _.template('${title_prefix} ${name_id} has an office in ${address}')({
-            name_id: FindPeople.formatNameId(people[0]),
-            title_prefix: FindPeople.formatTitlePrefix(appointment),
-            address: FindPeople.formatAddress(people[0].address)
-          });
-          res.say(message).send();
-        }
-        else {
-          res.say('I didn\'t find anyone named ' + first + ' ' + last).send();
-        }
-
-
-      }).catch(function(err) {
-        console.log(err.message);
-        res.say('Daisy Daisy, Give me your answer do. I\'m half crazy, All for the love of you!');
+      var search = new Search();
+      search.personFromName(last, first).then(function(person) {
+        var message = _.template('${title_prefix} ${name_id} has an office in ${address}')({
+          name_id: person.nameId(),
+          title_prefix: person.titlePrefix(),
+          address: person.address()
+        });
+        res.say(message).send();
       });
     }
     return false;
-
   }
 );
 
@@ -90,19 +76,13 @@ app.intent('LookupEmployeeByUsername', {
       res.say('I heard a last name of ' + last + ' but I did not hear the number.').send();
     }
     else {
-      var fp = new FindPeople();
-      fp.fromUsername(last + '.' + num).then(function(people) {
-        if (people.length > 0) {
-          var message = _.template('${first_name} has an office in ${address}')({
-            first_name: people[0].first_name,
-            address: FindPeople.formatAddress(people[0].address)
-          });
-          res.say(message).send();
-        }
-        else {
-          res.say('I didn\'t find anyone with a username of ' + last + '.' + num).send();
-        }
-
+      var search = new Search();
+      search.personFromUsername(last + '.' + num).then(function(person) {
+        var message = _.template('${first_name} has an office in ${address}')({
+          first_name: person.firstName(),
+          address: person.address()
+        });
+        res.say(message).send();
       }).catch(function(err) {
         console.log(err.message);
         res.say('Daisy Daisy, Give me your answer do. I\'m half crazy, All for the love of you!');

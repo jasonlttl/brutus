@@ -4,7 +4,7 @@ var chaiAsPromised = require('chai-as-promised');
 chai.use(chaiAsPromised);
 var expect = chai.expect;
 chai.config.includeStack = true;
-var Building = require('../building');
+var Building = require('../model/building');
 
 describe('Building', function () {
 

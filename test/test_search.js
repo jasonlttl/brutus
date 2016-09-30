@@ -52,7 +52,7 @@ describe('Search', function () {
     context('with code 274', function () {
       it('returns hitchcock hall', function () {
         var building_name = search.buildingFromCode('274').then(function (building){
-          return building.getJson.name;
+          return building.name();
         });
         expect(building_name).to.eventually.eq('Hitchcock Hall');
       });
@@ -65,10 +65,23 @@ describe('Search', function () {
 
         var last_name = 'Drake';
         var first_name = 'Michael';
-        var value = search.personFromName(last_name, first_name).then(function (obj) {
-          return obj[0].last_name;
+        var value = search.personFromName(last_name, first_name).then(function (person) {
+          return person.lastName();
         });
         return expect(value).to.eventually.eq(last_name);
+      });
+    });
+  });
+
+  describe('#personFromUsername', function () {
+    context('with a name.n', function () {
+      it('returns a match', function () {
+
+        var username = 'drake.379';
+        var value = search.personFromUsername(username).then(function (person) {
+          return person.username();
+        });
+        return expect(value).to.eventually.eq(username);
       });
     });
   });
