@@ -58,7 +58,7 @@ method.longitude = function() {
 }
 
 method.streetview = function() {
-  return 'https://maps.googleapis.com/maps/api/streetview?size=600x300&location=' + this.streetAddress() + '%20Columbus,%20OH%2043201';
+  return 'https://maps.googleapis.com/maps/api/streetview?size=600x300&location=' + encodeURI(this.streetAddress()) + '%20Columbus,%20OH%2043201';
 }
 
 module.exports = Building;
