@@ -43,11 +43,22 @@ method.card = function() {
     title: this.name(),
     text: this.streetAddress(),
     image: {
-      smallImageUrl: this.photoUrl(),
-      largeImageUrl: this.photoUrl()
+      smallImageUrl: this.streetview(),
+      largeImageUrl: this.streetview()
     }
   }
   return card;
+}
+
+method.latitude = function() {
+  return this.getJson().location.latitude;
+}
+method.longitude = function() {
+  return this.getJson().location.longitude;
+}
+
+method.streetview = function() {
+  return 'https://maps.googleapis.com/maps/api/streetview?size=600x300&location=' + this.streetAddress() + '%20Columbus,%20OH%2043201';
 }
 
 module.exports = Building;
